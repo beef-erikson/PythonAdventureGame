@@ -1,5 +1,7 @@
 from character import Enemy
 
+# Just for testing how creating a new enemy works.
+
 # Enemy - Beef
 beef = Enemy("Beef", "A viking slab of meat\n")
 beef.describe()
