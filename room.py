@@ -6,30 +6,36 @@ class Room():
         self.description = None
         self.linked_rooms = {}
         self.character = None
-                
-    # Gets name of room
+        self.item = None
+
+    # getter of roomname
     def get_name(self):
         return self.name
 
-    # Sets room description
-    def set_description(self, room_description):
-        self.description = room_description
-
-    # Gets description of room
+    # setter and getter of room description
     def get_description(self):
         print(self.description)
 
-    # Sets linked room(s)
+    def set_description(self, room_description):
+        self.description = room_description
+
+    # sets linked room(s)
     def link_room(self, room_to_link, direction):
         self.linked_rooms[direction] = room_to_link
 
-    # Gets character in room
+    # getter and setter of character(s) in room
     def get_character(self):
         return self.character
 
-    # Sets character in room
     def set_character(self, new_character):
         self.character = new_character
+
+    # getter and setter of item
+    def get_item(self):
+        return self.item
+
+    def set_item(self, item_name):
+        self.item = item_name
 
     # Prints room name, description and room exits
     def get_details(self):

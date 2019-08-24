@@ -5,6 +5,7 @@ from character import Friend
 
 # --Fields--
 dead = False
+backpack = []
 
 # --Rooms--
 # Kitchen details
@@ -49,37 +50,79 @@ casper = Friend("Casper", "A friendly ghost")
 casper.set_conversation("I would really like a hug.")
 kitchen.set_character(casper)
 
+# --Items--
+# Salad
+salad = Item("salad")
+salad.set_description("A nice caesar salad lays here")
+kitchen.set_item(salad)
+
+# Stake
+stake = Item("stake")
+stake.set_description("A sharp wodden stake sits quietly on the floor")
+dining_hall.set_item(stake)
+
 # --Game Loop--
 while dead == False:
     # Room details
     print("\n")
     current_room.get_details()
+    
     inhabitant = current_room.get_character()
     if inhabitant is not None:
         inhabitant.describe()
+    
+    item = current_room.get_item()
+    if item is not None:
+        item.describe()
     
     # --Commands--
     command = input("> ")
     # Travel
     if command in ["north", "south", "east", "west"]:
         current_room = current_room.move(command)
+    
     # Talk
     elif command == 'talk' and inhabitant is not None:
         inhabitant.talk()
+    
     # Fight
     elif command == 'fight' and inhabitant is not None and isinstance(inhabitant, Enemy):
         print("What will you fight with?")
         fight_with = input()
-        if inhabitant.fight(fight_with) == False:
-            print("The mighty " + inhabitant.name + " has slain you. You have died a horrible death.")
-            dead = True
+        
+        if fight_with in backpack:
+            if inhabitant.fight(fight_with) == True:
+                print("You have defeated the enemy.")
+                current_room.character = None
+            else:
+                print("The mighty " + inhabitant.name + " has slain you. You have died a horrible death.")
+                dead = True
+        else:
+            print("You do not have this item...")
+
+        if Enemy.enemies_defeated == 2:
+            print("You have defeated all the enemies!")
+            quit()
+    
     # Steal
     elif command == 'steal' and inhabitant is not None and isinstance(inhabitant, Enemy):
         inhabitant.steal()
+    
     # Sleep
     elif command == 'sleep' and inhabitant is not None and isinstance(inhabitant, Enemy):
         inhabitant.sleep()
+    
     # Hug
     elif command == 'hug' and inhabitant is not None and isinstance(inhabitant, Friend):
         inhabitant.hug()
+    
+    # Take
+    elif command == 'take' and item is not None:
+        backpack.append(item.name)
+        print("You have picked up the " + item.name + ".")
+        current_room.set_item(None)
 
+    # Inventory
+    elif command == 'inventory':
+        for items in backpack:
+            print(items)
