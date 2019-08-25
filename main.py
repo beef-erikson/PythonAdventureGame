@@ -1,7 +1,4 @@
-from room import Room
-from item import Item
-from character import Enemy
-from character import Friend
+import rpg
 
 # --Fields--
 dead = False
@@ -9,16 +6,16 @@ backpack = []
 
 # --Rooms--
 # Kitchen details
-kitchen = Room("Kitchen")
+kitchen = rpg.Room("Kitchen")
 kitchen.set_description("A dank and dirty room buzzing with flies.")
 
 # Dining Hall details
-dining_hall = Room("Dining Hall")
+dining_hall = rpg.Room("Dining Hall")
 dining_hall.set_description("A large wooden table is filled with various moldy food items. " +
     "A terrible stench fills the air.")
 
 # Ballroom details
-ballroom = Room("Ballroom")
+ballroom = rpg.Room("Ballroom")
 ballroom.set_description("This ballroom has seen better days. The once magnificent room is now in shambles; cobwebs " +
     "and broken tiles portray what was once a room filled with dancing, happy people.")
 
@@ -33,31 +30,31 @@ current_room = kitchen
 
 # --Enemies--
 # Beef
-beef = Enemy("Beef", "A viking slab of meat.\n")
+beef = rpg.Enemy("Beef", "A viking slab of meat.\n")
 beef.set_conversation("Yes, I'm talking meat. I know it's strange.")
 beef.set_weakness("salad")
 dining_hall.set_character(beef)
 
 # Vampire
-vampire = Enemy("Vlad", "A dark sinister figure, pale skinned and with pointed teeth, occupies a dark corner of the ballroom.\n")
+vampire = rpg.Enemy("Vlad", "A dark sinister figure, pale skinned and with pointed teeth, occupies a dark corner of the ballroom.\n")
 vampire.set_conversation("I vant to suck your blood, blaaa!")
 vampire.set_weakness("stake")
 ballroom.set_character(vampire)
 
 # --Friends--
 # Casper
-casper = Friend("Casper", "A friendly ghost")
+casper = rpg.Friend("Casper", "A friendly ghost")
 casper.set_conversation("I would really like a hug.")
 kitchen.set_character(casper)
 
 # --Items--
 # Salad
-salad = Item("salad")
+salad = rpg.Item("salad")
 salad.set_description("A nice caesar salad lays here")
 kitchen.set_item(salad)
 
 # Stake
-stake = Item("stake")
+stake = rpg.Item("stake")
 stake.set_description("A sharp wodden stake sits quietly on the floor")
 dining_hall.set_item(stake)
 
@@ -86,7 +83,7 @@ while dead == False:
         inhabitant.talk()
     
     # Fight
-    elif command == 'fight' and inhabitant is not None and isinstance(inhabitant, Enemy):
+    elif command == 'fight' and inhabitant is not None and isinstance(inhabitant, rpg.Enemy):
         print("What will you fight with?")
         fight_with = input()
         
@@ -100,20 +97,20 @@ while dead == False:
         else:
             print("You do not have this item...")
 
-        if Enemy.enemies_defeated == 2:
+        if rpg.Enemy.enemies_defeated == 2:
             print("You have defeated all the enemies!")
             quit()
     
     # Steal
-    elif command == 'steal' and inhabitant is not None and isinstance(inhabitant, Enemy):
+    elif command == 'steal' and inhabitant is not None and isinstance(inhabitant, rpg.Enemy):
         inhabitant.steal()
     
     # Sleep
-    elif command == 'sleep' and inhabitant is not None and isinstance(inhabitant, Enemy):
+    elif command == 'sleep' and inhabitant is not None and isinstance(inhabitant, rpg.Enemy):
         inhabitant.sleep()
     
     # Hug
-    elif command == 'hug' and inhabitant is not None and isinstance(inhabitant, Friend):
+    elif command == 'hug' and inhabitant is not None and isinstance(inhabitant, rpg.Friend):
         inhabitant.hug()
     
     # Take
