@@ -1,15 +1,14 @@
 import random
 
 class Character():
-
-    # Create a character
+    """Initialization for character"""
     def __init__(self, char_name, char_description):
         self.name = char_name
         self.description = char_description
         self.conversation = None
         self.awake = True
 
-    # Describe this character
+    """Describes this character"""
     def describe(self):
         if self.awake:
             print("\n" + self.name + " is here!" )
@@ -17,11 +16,11 @@ class Character():
         else:
             print("\n" + self.name + " is here, fast asleep!")
 
-    # Set what this character will say when talked to
+    """Sets what this character will say when talked to"""
     def set_conversation(self, conversation):
         self.conversation = conversation
 
-    # Talk to this character
+    """Talks to this character"""
     def talk(self):
         if self.awake:
             if self.conversation is not None:
@@ -31,7 +30,7 @@ class Character():
         else:
             print(self.name + " is fast asleep and does not respond.")
 
-    # Fight with this character
+    """Fight with this character"""
     def fight(self, combat_item):
         print(self.name + " doesn't want to fight with you")
         return True
@@ -40,24 +39,24 @@ class Character():
 class Enemy(Character):
     enemies_defeated = 0
     
-    # Initialization for enemies
+    """Initialization for enemies"""
     def __init__(self, char_name, char_description):
         super().__init__(char_name, char_description)
         self.weakness = None
 
-    # Sets item weakness
+    """Sets enemy weakness"""
     def set_weakness(self, item_weakness):
         self.weakness = item_weakness
 
-    # Gets item weakness
+    """Gets enemy weakness"""
     def get_weakness(self):
         return self.weakness
 
-    # Gets enemies defeated
+    """Gets enemies defeated"""
     def get_enemies_defeated(self):
         return self.enemies_defeated
 
-    # Starts fight
+    """Starts fight with enemy"""
     def fight(self, combat_item):
         if combat_item == self.weakness:
             print("You fend " + self.name + " off with " + combat_item)
@@ -67,7 +66,7 @@ class Enemy(Character):
             print(self.name + " crushes you, puny adventurer")
             return False
 
-    # Steal ability - 2/3 success chance
+    """Steal ability - 2/3 success chance"""
     def steal(self):
         rand = random.randint(0, 2)
         if rand < 2:
@@ -75,7 +74,7 @@ class Enemy(Character):
         else:
             print(self.name + " has been alerted to your thievery attempts and smacks you violently.")
 
-    # Sleep ability - 2/3 success chance
+    """Sleep ability - 2/3 success chance"""
     def sleep(self):
         rand = random.randint(0,2)
         if rand < 2:
@@ -86,12 +85,12 @@ class Enemy(Character):
     
 
 class Friend(Character):
-    # Initialization for friends
+    """Initialization for friends"""
     def __init__(self, char_name, char_description):
         super().__init__(char_name, char_description)
         self.happy = False
 
-    # Hugs
+    """Hugs friend"""
     def hug(self):
         print(self.name + " looks much more happier now.")
         if not self.happy:
