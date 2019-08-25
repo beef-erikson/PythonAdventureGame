@@ -4,7 +4,7 @@ class Item():
         self.name = item_name
         self.description = None
 
-    """# Sets item description"""
+    """Sets item description"""
     def set_description(self, item_description):
         self.description = item_description
 
